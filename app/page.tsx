@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic'
 
 import { useState } from 'react';
 
@@ -83,3 +84,4 @@ export default function Home() {
     </div>
   );
 }
+
