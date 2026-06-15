@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
   const stream = await groq.chat.completions.create({
     messages,
-    model: 'llama3-8b-8192',
+    model: 'llama-3.1-8b-instant',
     stream: true,
   });
 
@@ -34,5 +34,6 @@ export async function POST(req: Request) {
     },
   });
 }
+
 
 
