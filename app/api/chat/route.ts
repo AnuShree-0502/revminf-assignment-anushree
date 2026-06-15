@@ -1,7 +1,7 @@
-import { Groq } from 'groq-sdk';
-
 export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
+
+import { Groq } from 'groq-sdk';
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
