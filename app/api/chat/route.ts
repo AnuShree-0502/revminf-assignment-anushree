@@ -1,5 +1,8 @@
 import { Groq } from 'groq-sdk';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(req: Request) {
@@ -16,11 +19,19 @@ export async function POST(req: Request) {
     async start(controller) {
       for await (const chunk of stream) {
         const content = chunk.choices[0]?.delta?.content || '';
-        controller.enqueue(encoder.encode(content));
+        if (content) {
+          controller.enqueue(encoder.encode(content));
+        }
       }
       controller.close();
     },
   });
 
-  return new Response(readable);
+  return new Response(readable, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Transfer-Encoding': 'chunked',
+    },
+  });
 }
+
